@@ -1,18 +1,18 @@
-# 💼 LinkedIn Jobs Scraper — Bulk Job Data, FREE TO USE
+# 💼 LinkedIn Jobs Scraper — Salary & Recruiter Data
 
 Scrape LinkedIn job postings in bulk and get back a clean, spreadsheet-ready dataset: job title, company, the **exact** posting date, location, published salary range, seniority, employment type, industry, applicant count, the full description, and — when the posting names one — **the recruiter who posted it, with their profile link**.
 
-No login. No cookies. No session tokens. No per-result fee.
+No login. No cookies. No session tokens. **No per-run startup fee** — you pay for jobs returned, and a run that finds nothing costs nothing.
 
 ---
 
 ## ✨ Why this one
 
-Most LinkedIn job scrapers charge per result and still hand back columns that are empty or wrong. This one is free, and it fills the columns the others leave blank.
+Most LinkedIn job scrapers charge per result **and** a fee every time you press run — and still hand back columns that are empty or wrong. This one bills only for jobs delivered, and fills the columns the others leave blank.
 
 | | This Actor | Typical paid Actor |
 |---|---|---|
-| **Price** | **Free** — you pay only your own Apify platform usage | $0.40 – $2.00 per 1,000 jobs |
+| **Price** | **$0.70 per 1,000 jobs**, falling to $0.45 on higher plans | $0.40 – $5.00 per 1,000 jobs |
 | **Salary** | Parsed into `salary_min`, `salary_max`, currency and pay period | Usually empty |
 | **Recruiter contact** | Name, job title and profile URL, included | Empty, or sold as a paid add-on |
 | **Posting date** | The posting's **exact** date — `2026-09-03` | Often reconstructed from "5 months ago" and rounded |
@@ -20,6 +20,7 @@ Most LinkedIn job scrapers charge per result and still hand back columns that ar
 | **Applicant count** | Exact number, with a flag when LinkedIn only gave a range | Missing, or a bucket reported as exact |
 | **Input** | Paste a URL **or** describe the search in plain words | Usually one or the other |
 | **Filters LinkedIn ignores** | Applied to the real data, so they actually work | Passed upstream and silently dropped |
+| **Startup fee** | **None** | $0.00005 – $0.01 charged on every run, results or not |
 | **Minimum run size** | 1 job | One competitor forces a 150-job minimum |
 
 ---
@@ -230,7 +231,10 @@ With a published pay range:
 No. The Actor reads only what LinkedIn publishes publicly. Nothing to log into, nothing to expire, nothing to get your account restricted.
 
 **What does it cost?**
-The Actor itself is free. You pay only your own Apify platform usage, which is covered by the free plan's monthly credit for typical runs.
+$0.0007 per job on the free plan, dropping to $0.0006 (Bronze), $0.0005 (Silver) and $0.00045 (Gold and above). So 1,000 jobs is $0.70, or $0.45 on a Gold plan.
+
+**Is there a fee just for running it?**
+No. Every comparable Actor charges a startup fee on each run — between $0.00005 and $0.01 — whether or not it finds anything. This one charges only for jobs actually delivered to your dataset, so an over-filtered search that returns nothing costs you nothing. You are also never billed for rows the Actor could not complete: anything delivered without a charge is marked with `charged: false` and the reason.
 
 **Why is `apply_url` always empty?**
 LinkedIn reveals the employer's application link only to signed-in users. Rather than fill the column with the LinkedIn job URL — which would look like an apply link while pointing back to LinkedIn — it is reported as `null`. Use `apply_type` to tell an on-LinkedIn application from one that hands off to the employer, and `job_url` to open the posting.
